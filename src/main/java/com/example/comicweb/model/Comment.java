@@ -1,9 +1,12 @@
 package com.example.comicweb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 import lombok.extern.apachecommons.CommonsLog;
 
 import javax.persistence.*;
-
+@Data
 @Entity
 @Table(name = "comment")
 public class Comment {
@@ -16,36 +19,16 @@ public class Comment {
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
     @JoinColumn(name = "comic_id")
+
     private Comic comic;
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
     @JoinColumn(name = "user_id")
+
     private User user;
     public Comment() {
 
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCommentContent() {
-        return commentContent;
-    }
-
-    public void setCommentContent(String commentContent) {
-        this.commentContent = commentContent;
-    }
-
-    public Comic getComic() {
-        return comic;
-    }
-
-    public void setComic(Comic comic) {
-        this.comic = comic;
-    }
 }

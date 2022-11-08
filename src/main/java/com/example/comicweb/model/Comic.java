@@ -1,8 +1,12 @@
 package com.example.comicweb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
-
+@Data
 @Entity
 @Table(name = "comic")
 public class Comic {
@@ -22,19 +26,25 @@ public class Comic {
     private int view;
     @Column(name="img_url")
     private String imgageUrl;
+    @JsonIgnoreProperties("comic")
+    @JsonIgnore
     @OneToMany(mappedBy = "comic",cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
     private List<ComicChapters> comicChapters;
     @OneToMany(mappedBy = "comic",cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
+    @JsonIgnoreProperties("comic")
+    @JsonIgnore
     private List<Comment> comments;
-
+    @JsonIgnoreProperties("comic")
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "comic_category",
             joinColumns = @JoinColumn(name = "comic_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
+
     private List<Category> categories;
 
 
@@ -43,74 +53,5 @@ public class Comic {
 
     }
 
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public int getView() {
-        return view;
-    }
-
-    public void setView(int view) {
-        this.view = view;
-    }
-
-    public List<ComicChapters> getComicChapters() {
-        return comicChapters;
-    }
-
-    public void setComicChapters(List<ComicChapters> comicChapters) {
-        this.comicChapters = comicChapters;
-    }
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
-
-    public String getImgageUrl() {
-        return imgageUrl;
-    }
-
-    public void setImgageUrl(String imgageUrl) {
-        this.imgageUrl = imgageUrl;
-    }
 }

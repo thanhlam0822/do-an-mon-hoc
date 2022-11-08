@@ -18,25 +18,30 @@ public class CategoryController {
     CategoryService categoryService;
     @Autowired
     ComicService comicService;
+    // Lấy mọi danh mục của Category
     @GetMapping("/category")
     public List<Category> getAllCategory() {
         return categoryService.getAllCategory();
     }
+    // Lấy mọi danh mục Category theo Id
     @GetMapping("category/{categoryId}")
     public Category findCategoryById(@PathVariable("categoryId") long categoryId) {
         return categoryService.findCategoryById(categoryId);
     }
+    // Thêm một danh mục vào Category
     @PostMapping("/category")
     public Category addCategory(@RequestBody Category category) {
         categoryService.addCategory(category);
         return category;
     }
+    // Chinh sua category bang cach truyen Id vao path varible
     @PutMapping("category/{categoryId}")
     public Category updateCategory(@PathVariable("categoryId") long categoryId,@RequestBody Category category) {
         category.setId(categoryId);
         categoryService.addCategory(category);
         return category;
     }
+    // Them Category cho tung truyen
     @PutMapping("/category/{categoryId}/{comicId}")
     public Comic updateComicCategory(@PathVariable("categoryId") long categoryId,@PathVariable("comicId") long comicId) throws Exception {
         Category category = categoryService.findCategoryById(categoryId);
@@ -48,7 +53,7 @@ public class CategoryController {
         return comic;
 
     }
-
+    // Xoa category bang id cua category
     @DeleteMapping("category/{categoryId}")
     public String deleteCategory(@PathVariable("categoryId") long categoryId) {
         categoryService.deleteById(categoryId);

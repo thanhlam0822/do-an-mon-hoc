@@ -1,7 +1,10 @@
 package com.example.comicweb.model;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 
+import javax.persistence.*;
+@Data
 @Entity
 @Table(name = "comic_chapters")
 public class ComicChapters {
@@ -14,32 +17,11 @@ public class ComicChapters {
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
     @JoinColumn(name = "comic_id")
+
     private Comic comic;
     public ComicChapters() {
 
     }
 
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getChapterName() {
-        return chapterName;
-    }
-
-    public void setChapterName(String chapterName) {
-        this.chapterName = chapterName;
-    }
-
-    public Comic getComic() {
-        return comic;
-    }
-
-    public void setComic(Comic comic) {
-        this.comic = comic;
-    }
 }

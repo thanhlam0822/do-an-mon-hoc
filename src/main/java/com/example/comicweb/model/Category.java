@@ -1,8 +1,12 @@
 package com.example.comicweb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
-
+@Data
 @Entity
 @Table(name = "category")
 public class Category {
@@ -18,6 +22,8 @@ public class Category {
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "comic_id")
     )
+    @JsonIgnoreProperties("category")
+    @JsonIgnore
     private List<Comic> comics;
 
     public long getId() {
