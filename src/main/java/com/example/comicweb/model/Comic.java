@@ -25,6 +25,10 @@ public class Comic {
     @OneToMany(mappedBy = "comic",cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
     private List<ComicChapters> comicChapters;
+    @OneToMany(mappedBy = "comic",cascade = {CascadeType.PERSIST,CascadeType.MERGE,
+            CascadeType.DETACH,CascadeType.REFRESH })
+    private List<Comment> comments;
+
     @ManyToMany
     @JoinTable(
             name = "comic_category",
