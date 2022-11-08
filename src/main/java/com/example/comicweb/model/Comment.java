@@ -16,11 +16,15 @@ public class Comment {
     private Long id;
     @Column(name = "comment_content")
     private String commentContent;
+    @JsonIgnore
+    @JsonIgnoreProperties("comment")
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
     @JoinColumn(name = "comic_id")
 
     private Comic comic;
+    @JsonIgnore
+    @JsonIgnoreProperties("comment")
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
     @JoinColumn(name = "user_id")

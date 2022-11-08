@@ -17,6 +17,11 @@ public class ComicServiceImpl implements ComicService {
     }
 
     @Override
+    public List<Comic> getAllComicByCategory(long categoryId) {
+        return comicRepository.getComicsByCategories(categoryId);
+    }
+
+    @Override
     public Comic findComicById(long comicId) {
         Optional<Comic> list = comicRepository.findById(comicId);
         Comic theComic = list.get();

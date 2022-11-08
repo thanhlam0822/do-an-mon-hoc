@@ -16,7 +16,7 @@ public class Comic {
     private long id;
     @Column(name = "name")
     private String name;
-    @Column(name = "description")
+    @Column(name = "description",length = 100000)
     private String description;
     @Column(name = "status")
     private String status;
@@ -26,17 +26,17 @@ public class Comic {
     private int view;
     @Column(name="img_url")
     private String imgageUrl;
-    @JsonIgnoreProperties("comic")
     @JsonIgnore
     @OneToMany(mappedBy = "comic",cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
     private List<ComicChapters> comicChapters;
     @OneToMany(mappedBy = "comic",cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
-    @JsonIgnoreProperties("comic")
+//    @JsonIgnoreProperties("comic")
     @JsonIgnore
     private List<Comment> comments;
-    @JsonIgnoreProperties("comic")
+
+    //    @JsonIgnoreProperties("comic")
     @JsonIgnore
     @ManyToMany
     @JoinTable(

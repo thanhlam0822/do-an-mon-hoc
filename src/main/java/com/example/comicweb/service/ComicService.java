@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ComicService {
     List<Comic> getAllComic();
+    List<Comic> getAllComicByCategory(long categoryId);
     Comic findComicById(long comicId);
     void addComic(Comic comic);
     void deleteComic(long comicId);

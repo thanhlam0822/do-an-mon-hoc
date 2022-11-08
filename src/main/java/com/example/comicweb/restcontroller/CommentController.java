@@ -33,7 +33,7 @@ public class CommentController {
         return commentService.findCommentByUserIdAndComicId(userId, comicId);
     }
     // Thêm mói một comment vào user và comic
-    @PostMapping("/{userId}/comment/{commicid}")
+    @PostMapping("/{userId}/comment/{comicId}")
     public Comment addComment(@PathVariable("userId") long userId, @PathVariable("comicId") long comicId,@RequestBody Comment comment) {
         Optional<User> list = userRepository.findById(userId);
         User tempUser = list.get();

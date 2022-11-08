@@ -1,5 +1,6 @@
 package com.example.comicweb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -30,12 +31,14 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;
-
+    @Column(name= "balance_user")
+    private int balance;
     @Transient
     private String token;
     public User() {
 
     }
+    @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
     private List<Comment> comments;

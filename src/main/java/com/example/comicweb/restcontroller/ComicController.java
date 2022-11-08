@@ -22,6 +22,10 @@ public class ComicController {
     public Comic getComicById(@PathVariable("comicId") long comicId) {
         return comicService.findComicById(comicId);
     }
+    @GetMapping("category/{categoryId}/comic")
+    public List<Comic> getAllComicByCategory(@PathVariable("categoryId") long categoryId) {
+        return comicService.getAllComicByCategory(categoryId);
+    }
     // Thêm mới một comic
     @PostMapping("/comic")
     public Comic addComic(@RequestBody Comic comic) {

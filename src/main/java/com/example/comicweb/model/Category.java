@@ -22,7 +22,7 @@ public class Category {
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "comic_id")
     )
-    @JsonIgnoreProperties("category")
+//    @JsonIgnoreProperties("category")
     @JsonIgnore
     private List<Comic> comics;
 
