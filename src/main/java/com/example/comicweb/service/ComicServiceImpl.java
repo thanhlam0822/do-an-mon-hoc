@@ -22,6 +22,11 @@ public class ComicServiceImpl implements ComicService {
     }
 
     @Override
+    public List<Comic> findComicByName(String name) {
+        return comicRepository.getComicByNameContaining(name);
+    }
+
+    @Override
     public Comic findComicById(long comicId) {
         Optional<Comic> list = comicRepository.findById(comicId);
         Comic theComic = list.get();

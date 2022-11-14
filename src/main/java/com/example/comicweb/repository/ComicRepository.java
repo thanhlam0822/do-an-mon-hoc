@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface ComicRepository extends JpaRepository<Comic,Long> {
     List<Comic> getComicsByCategories(long categoryId);
+    List<Comic> getComicByNameContaining(String name);
 }

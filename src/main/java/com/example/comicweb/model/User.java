@@ -42,4 +42,21 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
     private List<Comment> comments;
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(
+            name = "favorite",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "comic_id")
+    )
+    private List<Comic> comics;
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(
+            name = "following",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "comic_id")
+    )
+    private List<Comic> comicsFollowed;
+
 }

@@ -3,11 +3,14 @@ package com.example.comicweb.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 @Data
 @Entity
+//@EqualsAndHashCode()
 @Table(name = "comic")
 public class Comic {
     @Id
@@ -16,7 +19,7 @@ public class Comic {
     private long id;
     @Column(name = "name")
     private String name;
-    @Column(name = "description",length = 100000)
+    @Column(name = "description",length = 1000000)
     private String description;
     @Column(name = "status")
     private String status;
@@ -26,6 +29,8 @@ public class Comic {
     private int view;
     @Column(name="img_url")
     private String imgageUrl;
+    @Column(name = "date_update" )
+    private LocalDateTime date = LocalDateTime.now();
     @JsonIgnore
     @OneToMany(mappedBy = "comic",cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
@@ -46,7 +51,22 @@ public class Comic {
     )
 
     private List<Category> categories;
-
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "favorite",
+            joinColumns = @JoinColumn(name = "comic_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> users;
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "following",
+            joinColumns = @JoinColumn(name = "comic_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> userFollow;
 
 
     public Comic() {

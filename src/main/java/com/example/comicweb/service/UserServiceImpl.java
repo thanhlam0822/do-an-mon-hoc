@@ -42,4 +42,11 @@ public class UserServiceImpl implements UserService {
     {
         userRepository.updateUserRole(username, newRole);
     }
+
+    @Override
+    public User findById(long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        User userList = user.get();
+        return userList;
+    }
 }

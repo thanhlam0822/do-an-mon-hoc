@@ -1,7 +1,9 @@
 package com.example.comicweb.restcontroller;
 
 import com.example.comicweb.model.Comic;
+import com.example.comicweb.model.User;
 import com.example.comicweb.service.ComicService;
+import com.example.comicweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +14,8 @@ import java.util.List;
 public class ComicController {
     @Autowired
     ComicService comicService;
+    @Autowired
+    UserService userService;
     // Lấy mọi comic đã sẵn có trên database
     @GetMapping("/comic")
     public List<Comic> GetAllComic() {
@@ -31,6 +35,32 @@ public class ComicController {
     public Comic addComic(@RequestBody Comic comic) {
          comicService.addComic(comic);
          return comic;
+    }
+    /* Them truyen vao danh sach yeu thich */
+    @PostMapping("/comic/favorite/{userId}/{comicId}")
+    public Comic addFavorite(@PathVariable("userId") long userId,@PathVariable("comicId") long comicId) {
+        User user = userService.findById(userId);
+        Comic comic = comicService.findComicById(comicId);
+        List<Comic> favorites = user.getComics();
+        favorites.add(comic);
+        user.setComics(favorites);
+        userService.saveUser(user);
+        return comic;
+    }
+    // Them truyen vao danh sach dang theo doi
+    @PostMapping("/comic/following/{userId}/{comicId}")
+    public Comic addFollowing(@PathVariable("userId") long userId,@PathVariable("comicId") long comicId) {
+        User user = userService.findById(userId);
+        Comic comic = comicService.findComicById(comicId);
+        List<Comic> follows = user.getComicsFollowed();
+        follows.add(comic);
+        user.setComicsFollowed(follows);
+        userService.saveUser(user);
+//        List<User> userList = comic.getUserFollow();
+//        userList.add(user);
+//        comic.setUsers(userList);
+//        comicService.addComic(comic);
+        return comic;
     }
     // Chinh sua mot comic
     @PutMapping("comic/{comicId}")
