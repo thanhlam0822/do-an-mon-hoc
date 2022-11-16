@@ -16,7 +16,8 @@ public class ComicChapters {
     private long id;
     @Column(name = "chapter_name")
     private String chapterName;
-
+    @Column(name = "chapter_link")
+    private String chapterLink;
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
     @JoinColumn(name = "comic_id")

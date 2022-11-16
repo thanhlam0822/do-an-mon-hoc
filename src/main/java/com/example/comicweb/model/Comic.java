@@ -28,7 +28,7 @@ public class Comic {
     @Column(name = "view")
     private int view;
     @Column(name="img_url")
-    private String imgageUrl;
+    private String imageUrl;
     @Column(name = "date_update" )
     private LocalDateTime date = LocalDateTime.now();
     @JsonIgnore
