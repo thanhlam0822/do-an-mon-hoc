@@ -3,10 +3,13 @@ package com.example.comicweb.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.apachecommons.CommonsLog;
 
 import javax.persistence.*;
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "comment")
 public class Comment {

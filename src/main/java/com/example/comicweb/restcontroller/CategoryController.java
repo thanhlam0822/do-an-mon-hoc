@@ -21,8 +21,11 @@ public class CategoryController {
     // Lấy mọi danh mục của Category
     @GetMapping("/category")
     public List<Category> getAllCategory() {
+
         return categoryService.getAllCategory();
     }
+
+
     // Lấy mọi danh mục Category theo Id
     @GetMapping("category/{categoryId}")
     public Category findCategoryById(@PathVariable("categoryId") long categoryId) {

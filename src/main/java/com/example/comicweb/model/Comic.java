@@ -2,13 +2,14 @@ package com.example.comicweb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-@Data
+@Getter
+@Setter
+
 @Entity
 //@EqualsAndHashCode()
 @Table(name = "comic")
@@ -42,7 +43,7 @@ public class Comic {
     private List<Comment> comments;
 
     //    @JsonIgnoreProperties("comic")
-    @JsonIgnore
+
     @ManyToMany
     @JoinTable(
             name = "comic_category",

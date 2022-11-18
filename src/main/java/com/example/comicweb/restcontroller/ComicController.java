@@ -1,7 +1,9 @@
 package com.example.comicweb.restcontroller;
 
+import com.example.comicweb.model.Category;
 import com.example.comicweb.model.Comic;
 import com.example.comicweb.model.User;
+import com.example.comicweb.service.CategoryService;
 import com.example.comicweb.service.ComicService;
 import com.example.comicweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class ComicController {
+    @Autowired
+    CategoryService categoryService;
     @Autowired
     ComicService comicService;
     @Autowired
@@ -28,7 +32,10 @@ public class ComicController {
     }
     @GetMapping("category/{categoryId}/comic")
     public List<Comic> getAllComicByCategory(@PathVariable("categoryId") long categoryId) {
-        return comicService.getAllComicByCategory(categoryId);
+        Category category =categoryService.findCategoryById(categoryId);
+        List<Comic> comics = category.getComics();
+
+        return comics;
     }
     // Thêm mới một comic
     @PostMapping("/comic")
