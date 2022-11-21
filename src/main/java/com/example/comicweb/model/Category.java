@@ -23,15 +23,8 @@ public class Category {
     private String name;
     @Column(name = "view")
     private String view;
-@JsonIgnore
-    @ManyToMany(mappedBy = "categories")
-//    @JoinTable(
-//            name = "comic_category",
-//            joinColumns = @JoinColumn( name = "category_id"),
-//            inverseJoinColumns = @JoinColumn(name = "comic_id")
-//    )
-//    @JsonIgnoreProperties("category")
 
+    @ManyToMany(mappedBy = "categories")
     private List<Comic> comics;
 
 

@@ -1,19 +1,29 @@
 package com.example.comicweb.restcontroller;
 
+
+import com.example.comicweb.dto.CategoryDTO;
+import com.example.comicweb.dto.ComicDTO;
 import com.example.comicweb.model.Category;
 import com.example.comicweb.model.Comic;
 import com.example.comicweb.model.User;
 import com.example.comicweb.service.CategoryService;
 import com.example.comicweb.service.ComicService;
 import com.example.comicweb.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
 public class ComicController {
+    @Autowired
+    private ModelMapper modelMapper;
     @Autowired
     CategoryService categoryService;
     @Autowired
@@ -22,8 +32,12 @@ public class ComicController {
     UserService userService;
     // Lấy mọi comic đã sẵn có trên database
     @GetMapping("/comic")
-    public List<Comic> GetAllComic() {
-        return comicService.getAllComic();
+    public List<ComicDTO> GetAllComic(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                      @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize) {
+//        return comicService.getAllComic().stream().map(comic -> modelMapper.map(comic, ComicDTO.class))
+//                .collect(Collectors.toList());
+        List<ComicDTO> comicDTOS = comicService.getAllComic(pageNumber,pageSize);
+        return comicDTOS;
     }
     // Lấy comic theo Id
     @GetMapping("comic/{comicId}")

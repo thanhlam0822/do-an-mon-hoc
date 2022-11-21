@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 @Getter
 @Setter
-
+@Data
 @Entity
 //@EqualsAndHashCode()
 @Table(name = "comic")
@@ -32,6 +32,8 @@ public class Comic {
     private String imageUrl;
     @Column(name = "date_update" )
     private LocalDateTime date = LocalDateTime.now();
+    @Column(name= "star_rate")
+    private Long starRate;
     @JsonIgnore
     @OneToMany(mappedBy = "comic",cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
@@ -43,7 +45,7 @@ public class Comic {
     private List<Comment> comments;
 
     //    @JsonIgnoreProperties("comic")
-
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "comic_category",
@@ -52,7 +54,7 @@ public class Comic {
     )
 
     private List<Category> categories;
-    @JsonIgnore
+
     @ManyToMany
     @JoinTable(
             name = "favorite",
