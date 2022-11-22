@@ -1,6 +1,7 @@
 package com.example.comicweb.service;
 
 import com.example.comicweb.dto.ComicDTO;
+import com.example.comicweb.model.Category;
 import com.example.comicweb.model.Comic;
 import com.example.comicweb.repository.ComicRepository;
 import org.modelmapper.ModelMapper;
@@ -36,8 +37,11 @@ public class ComicServiceImpl implements ComicService {
     }
 
     @Override
-    public List<Comic> findComicByName(String name) {
-        return comicRepository.getComicByNameContaining(name);
+    public List<ComicDTO> findComicByName(String name) {
+        List<Comic> comics = comicRepository.searchComics(name);
+        List<ComicDTO> comicDTOS = comics.stream().map((comic) -> modelMapper.map(comic, ComicDTO.class))
+                .collect(Collectors.toList());
+        return comicDTOS;
     }
 
     @Override
@@ -56,4 +60,11 @@ public class ComicServiceImpl implements ComicService {
     public void deleteComic(long comicId) {
         comicRepository.deleteById(comicId);
     }
+
+    @Override
+    public List<Comic> findComicByCategoriesName(String name) {
+        return comicRepository.findComicByCategoriesName(name);
+    }
+
+
 }

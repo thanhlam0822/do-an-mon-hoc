@@ -1,8 +1,8 @@
 package com.example.comicweb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 //@EqualsAndHashCode()
 @Table(name = "comic")
-public class Comic {
+public class Comic  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comic_id")
@@ -47,6 +47,7 @@ public class Comic {
     //    @JsonIgnoreProperties("comic")
     @JsonIgnore
     @ManyToMany
+
     @JoinTable(
             name = "comic_category",
             joinColumns = @JoinColumn(name = "comic_id"),

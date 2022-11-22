@@ -33,7 +33,7 @@ public class ComicController {
     // Lấy mọi comic đã sẵn có trên database
     @GetMapping("/comic")
     public List<ComicDTO> GetAllComic(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                      @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize) {
+                                      @RequestParam(value = "pageSize",defaultValue = "9",required = false) Integer pageSize) {
 //        return comicService.getAllComic().stream().map(comic -> modelMapper.map(comic, ComicDTO.class))
 //                .collect(Collectors.toList());
         List<ComicDTO> comicDTOS = comicService.getAllComic(pageNumber,pageSize);
@@ -51,6 +51,16 @@ public class ComicController {
 
         return comics;
     }
+    @GetMapping("/search")
+    public List<ComicDTO> searchComics(@RequestParam("name") String name) {
+        return  comicService.findComicByName(name);
+    }
+    @GetMapping("/search2")
+    public List<Comic> searchComicsByCategoriesName(@RequestParam("name") String name) {
+        return  comicService.findComicByCategoriesName(name);
+    }
+
+
     // Thêm mới một comic
     @PostMapping("/comic")
     public Comic addComic(@RequestBody Comic comic) {
