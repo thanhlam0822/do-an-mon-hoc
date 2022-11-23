@@ -1,6 +1,7 @@
 package com.example.comicweb.service;
 
 import com.example.comicweb.dto.ComicDTO;
+import com.example.comicweb.dto.ComicRankingDTO;
 import com.example.comicweb.model.Category;
 import com.example.comicweb.model.Comic;
 import com.example.comicweb.repository.ComicRepository;
@@ -62,8 +63,27 @@ public class ComicServiceImpl implements ComicService {
     }
 
     @Override
-    public List<Comic> findComicByCategoriesName(String name) {
-        return comicRepository.findComicByCategoriesName(name);
+    public List<ComicRankingDTO> rankingDay() {
+        List<Comic> comics = comicRepository.rankingDay();
+        List<ComicRankingDTO> comicDTOS = comics.stream().map((comic) -> modelMapper.map(comic, ComicRankingDTO.class))
+                .collect(Collectors.toList());
+        return comicDTOS;
+    }
+
+    @Override
+    public List<ComicRankingDTO> rankingWeek() {
+        List<Comic> comics = comicRepository.rankingWeek();
+        List<ComicRankingDTO> comicDTOS = comics.stream().map((comic) -> modelMapper.map(comic, ComicRankingDTO.class))
+                .collect(Collectors.toList());
+        return comicDTOS;
+    }
+
+    @Override
+    public List<ComicRankingDTO> rankingMonth() {
+        List<Comic> comics = comicRepository.rankingMonth();
+        List<ComicRankingDTO> comicDTOS = comics.stream().map((comic) -> modelMapper.map(comic, ComicRankingDTO.class))
+                .collect(Collectors.toList());
+        return comicDTOS;
     }
 
 

@@ -3,6 +3,7 @@ package com.example.comicweb.restcontroller;
 
 import com.example.comicweb.dto.CategoryDTO;
 import com.example.comicweb.dto.ComicDTO;
+import com.example.comicweb.dto.ComicRankingDTO;
 import com.example.comicweb.model.Category;
 import com.example.comicweb.model.Comic;
 import com.example.comicweb.model.User;
@@ -33,7 +34,7 @@ public class ComicController {
     // Lấy mọi comic đã sẵn có trên database
     @GetMapping("/comic")
     public List<ComicDTO> GetAllComic(@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                      @RequestParam(value = "pageSize",defaultValue = "9",required = false) Integer pageSize) {
+                                      @RequestParam(value = "pageSize",defaultValue = "8",required = false) Integer pageSize) {
 //        return comicService.getAllComic().stream().map(comic -> modelMapper.map(comic, ComicDTO.class))
 //                .collect(Collectors.toList());
         List<ComicDTO> comicDTOS = comicService.getAllComic(pageNumber,pageSize);
@@ -55,9 +56,20 @@ public class ComicController {
     public List<ComicDTO> searchComics(@RequestParam("name") String name) {
         return  comicService.findComicByName(name);
     }
-    @GetMapping("/search2")
-    public List<Comic> searchComicsByCategoriesName(@RequestParam("name") String name) {
-        return  comicService.findComicByCategoriesName(name);
+    @GetMapping("/ranking/day")
+    public List<ComicRankingDTO> rankingDay() {
+        return comicService.rankingDay();
+
+    }
+    @GetMapping("/ranking/week")
+    public List<ComicRankingDTO> rankingWeek() {
+        return comicService.rankingWeek();
+
+    }
+    @GetMapping("/ranking/month")
+    public List<ComicRankingDTO> rankingMonth() {
+        return comicService.rankingMonth();
+
     }
 
 

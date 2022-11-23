@@ -20,7 +20,10 @@ public interface ComicRepository extends JpaRepository<Comic,Long> {
             "Or c.author LIKE CONCAT('%',:query, '%')" + ""
     )
     List<Comic> searchComics(String query);
-
-    @Query("select c from Comic c join c.categories ca where ca.name = :query")
-    List<Comic> findComicByCategoriesName(@Param("query") String query);
+    @Query( value = "SELECT * from Comic c order by c.view_day desc limit 5  ",nativeQuery = true)
+    List<Comic> rankingDay();
+    @Query( value = "SELECT * from Comic c order by c.view_week desc limit 5  ",nativeQuery = true)
+    List<Comic> rankingWeek();
+    @Query( value = "SELECT * from Comic c order by c.view_month desc limit 5  ",nativeQuery = true)
+    List<Comic> rankingMonth();
 }

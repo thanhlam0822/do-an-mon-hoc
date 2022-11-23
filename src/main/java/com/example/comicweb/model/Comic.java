@@ -7,8 +7,7 @@ import org.hibernate.annotations.Formula;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-@Getter
-@Setter
+
 @Data
 @Entity
 //@EqualsAndHashCode()
@@ -26,14 +25,19 @@ public class Comic  {
     private String status;
     @Column(name = "author")
     private String author;
-    @Column(name = "view")
-    private int view;
+
     @Column(name="img_url")
     private String imageUrl;
     @Column(name = "date_update" )
     private LocalDateTime date = LocalDateTime.now();
     @Column(name= "star_rate")
     private Long starRate;
+    @Column(name="view_day")
+    private int viewDay;
+    @Column(name="view_week")
+    private int viewWeek;
+    @Column(name = "view_month")
+    private int viewMonth;
     @JsonIgnore
     @OneToMany(mappedBy = "comic",cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
