@@ -65,13 +65,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateTest(String userName,long id) {
-        userRepository.updateTest(userName, id);
+    public void updateUser( User user) {
+        userRepository.save(user);
     }
 
     @Override
-    public User update2(User user) {
-        return userRepository.save(user);
+    public void deleteUSer(Long id) {
+        userRepository.deleteUser(id);
     }
+
 
 }

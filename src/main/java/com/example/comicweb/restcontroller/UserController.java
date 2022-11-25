@@ -6,6 +6,7 @@ import com.example.comicweb.model.Role;
 import com.example.comicweb.model.User;
 import com.example.comicweb.security.UserPrincipal;
 import com.example.comicweb.service.UserService;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -45,25 +47,45 @@ public class UserController
 
         return ResponseEntity.ok(true);
     }
-    @PutMapping("/edit/{userId}")
-    public String editUser(@PathVariable("userId") long userId,  @RequestBody  String userName) {
-        userService.updateTest(userName,userId);
+    @PatchMapping("edit/{userId}")
+    public String editUser(@PathVariable("userId") long userId ,  @RequestBody User user ) {
+        User tempUser = userService.findById(userId);
+        user.setId(userId);
+        if( user.getUsername() == null) {
+            user.setUsername(tempUser.getUsername());
+        }
+         if (user.getGmail() == null) {
+            user.setGmail(tempUser.getGmail());
+        }
+         if (user.getJob() == null) {
+            user.setJob(tempUser.getJob());
+        }
+         if (user.getPosition() == null) {
+            user.setPosition(tempUser.getPosition());
+        }
+         if (user.getCreateTime() == null) {
+            user.setCreateTime(tempUser.getCreateTime());
+        }
+        if (user.getName() == null) {
+            user.setName(tempUser.getName());
+        }
+         if (user.getPassword() == null) {
+            user.setPassword(tempUser.getPassword());
+        }
+         if (user.getRole() == null) {
+            user.setRole(tempUser.getRole());
+        }
+        userService.updateUser(user);
         return "Success";
     }
-    @PutMapping("/edit2/{userId}")
-    @Transactional
-    public User editUser2(@PathVariable("userId") long userId,  @RequestBody User user ) {
-        User updatedUser = userService.findById(userId);
-        updatedUser.setUsername(user.getUsername());
+    @PatchMapping("{id}")
+    public String removeUser(@PathVariable("id") Long id) {
+        userService.deleteUSer(id);
+        return "Deleted";
 
-        user.setUsername(updatedUser.getUsername());
-        user.setName(updatedUser.getName());
-        user.setPassword(updatedUser.getPassword());
-        user.setRole(updatedUser.getRole());
-        user.setCreateTime(updatedUser.getCreateTime());
-
-        return userService.update2(updatedUser);
     }
+
+
 
 
 }

@@ -35,6 +35,8 @@ public class User {
     private String job;
     @Column(name="position")
     private String position;
+    @Column(name="status")
+    private String status;
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;

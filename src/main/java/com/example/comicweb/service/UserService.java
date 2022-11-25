@@ -15,6 +15,7 @@ public interface UserService {
 
     void changeRole(Role newRole, String username);
     User findById(long userId);
-    void updateTest(String userName,long id);
-    User update2(User user);
+    void updateUser(User user);
+    void deleteUSer(Long id);
+
 }
