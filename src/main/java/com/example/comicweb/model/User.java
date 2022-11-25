@@ -9,8 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "user")
 public class User {
@@ -30,7 +29,12 @@ public class User {
 
     @Column(name = "create_time", nullable = false)
     private LocalDateTime createTime;
-
+    @Column(name = "gmail")
+    private String gmail;
+    @Column(name="job")
+    private String job;
+    @Column(name="position")
+    private String position;
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;

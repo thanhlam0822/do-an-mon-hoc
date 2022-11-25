@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class RoleController {
+public class  RoleController {
     @GetMapping("/admin")
     public String adminRole() {
         return "This is admin role";
