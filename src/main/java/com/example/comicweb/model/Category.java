@@ -23,7 +23,7 @@ public class Category {
     private String name;
     @Column(name = "view")
     private String view;
-
+    @JsonIgnore
     @ManyToMany(mappedBy = "categories")
     private List<Comic> comics;
 
