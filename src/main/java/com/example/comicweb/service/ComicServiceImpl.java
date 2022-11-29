@@ -38,11 +38,18 @@ public class ComicServiceImpl implements ComicService {
     }
 
     @Override
-    public List<ComicDTO> findComicByName(String name) {
-        List<Comic> comics = comicRepository.searchComics(name);
+    public List<ComicDTO> findComicByName(String name,Integer pageNumber, Integer pageSize) {
+
+        Pageable p = PageRequest.of(pageNumber,pageSize);
+        Page<Comic> page =  comicRepository.searchComics(name,p);
+        List<Comic> comics = page.getContent();
         List<ComicDTO> comicDTOS = comics.stream().map((comic) -> modelMapper.map(comic, ComicDTO.class))
                 .collect(Collectors.toList());
         return comicDTOS;
+//        List<Comic> comics = comicRepository.searchComics(name);
+//        List<ComicDTO> comicDTOS = comics.stream().map((comic) -> modelMapper.map(comic, ComicDTO.class))
+//                .collect(Collectors.toList());
+//        return comicDTOS;
     }
 
     @Override

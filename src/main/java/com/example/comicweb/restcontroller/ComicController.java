@@ -53,8 +53,11 @@ public class ComicController {
         return comics;
     }
     @GetMapping("/search")
-    public List<ComicDTO> searchComics(@RequestParam("name") String name) {
-        return  comicService.findComicByName(name);
+    public List<ComicDTO> searchComics(@RequestParam("name") String name,@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                       @RequestParam(value = "pageSize",defaultValue = "8",required = false) Integer pageSize) {
+//        return  comicService.findComicByName(name);
+        List<ComicDTO> comicDTOS = comicService.findComicByName(name,pageNumber,pageSize);
+        return comicDTOS;
     }
     @GetMapping("/ranking/day")
     public List<ComicRankingDTO> rankingDay() {

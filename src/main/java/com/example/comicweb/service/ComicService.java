@@ -11,7 +11,7 @@ import java.util.List;
 public interface ComicService {
     List<ComicDTO> getAllComic(Integer pageNumber, Integer pageSize);
     List<Comic> getAllComicByCategory(long categoryId);
-    List<ComicDTO> findComicByName(String name);
+    List<ComicDTO> findComicByName(String name,Integer pageNumber, Integer pageSize);
     Comic findComicById(long comicId);
     void addComic(Comic comic);
     void deleteComic(long comicId);

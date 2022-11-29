@@ -2,6 +2,7 @@ package com.example.comicweb.repository;
 
 import com.example.comicweb.model.Category;
 import com.example.comicweb.model.Comic;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,7 +20,7 @@ public interface ComicRepository extends JpaRepository<Comic,Long> {
             " Or c.name   LIKE CONCAT('%',:query, '%')"  +
             "Or c.author LIKE CONCAT('%',:query, '%')" + ""
     )
-    List<Comic> searchComics(String query);
+    List<Comic> searchComics(String query, Pageable pageable);
     @Query( value = "SELECT * from Comic c order by c.view_day desc limit 5  ",nativeQuery = true)
     List<Comic> rankingDay();
     @Query( value = "SELECT * from Comic c order by c.view_week desc limit 5  ",nativeQuery = true)
