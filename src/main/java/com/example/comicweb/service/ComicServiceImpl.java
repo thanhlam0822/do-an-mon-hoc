@@ -42,6 +42,7 @@ public class ComicServiceImpl implements ComicService {
 
         Pageable p = PageRequest.of(pageNumber,pageSize);
         Page<Comic> page =  comicRepository.searchComics(name,p);
+
         List<Comic> comics = page.getContent();
         List<ComicDTO> comicDTOS = comics.stream().map((comic) -> modelMapper.map(comic, ComicDTO.class))
                 .collect(Collectors.toList());
