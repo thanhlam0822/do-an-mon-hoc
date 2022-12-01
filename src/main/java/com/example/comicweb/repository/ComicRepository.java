@@ -22,11 +22,17 @@ public interface ComicRepository extends JpaRepository<Comic,Long> {
 //            "Or c.author LIKE CONCAT('%',:query, '%')" + ""
 //    )
 //    List<Comic> searchComics(String query, Pageable pageable);
-    @Query(value = "SELECT   c  FROM Comic c join  c.categories ca WHERE   " + "ca.name=:query" +
-            " Or c.name   LIKE CONCAT('%',:query, '%')"  +
-            "Or c.author LIKE CONCAT('%',:query, '%')" + ""
+    @Query(value = " select c  FROM Comic c join  c.categories ca WHERE   " + "ca.name=:query" +
+            "  Or   c.name   LIKE CONCAT('%',:query, '%')"  +
+            "Or  c.author LIKE CONCAT('%',:query, '%')"
     )
     Page<Comic> searchComics(String query, Pageable pageable);
+    @Query(value = "select c from Comic c join c.categories ca where " +
+            "ca.name LIKE CONCAT('%',:query1, '%') and c.author LIKE CONCAT('%',:query2, '%') " +
+            "or  ca.name LIKE CONCAT('%',:query1, '%') and c.name LIKE CONCAT('%',:query2, '%')" +
+            "or c.author LIKE CONCAT('%',:query1, '%') and ca.name LIKE CONCAT('%',:query2, '%')" +
+            "or c.author LIKE CONCAT('%',:query1, '%') and c.name LIKE CONCAT('%',:query2, '%')")
+    List<Comic> filterComic(String query1,String query2);
     @Query( value = "SELECT * from Comic c order by c.view_day desc limit 5  ",nativeQuery = true)
     List<Comic> rankingDay();
     @Query( value = "SELECT * from Comic c order by c.view_week desc limit 5  ",nativeQuery = true)

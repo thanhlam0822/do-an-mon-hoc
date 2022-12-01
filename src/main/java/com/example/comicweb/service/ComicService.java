@@ -15,10 +15,10 @@ public interface ComicService {
     Comic findComicById(long comicId);
     void addComic(Comic comic);
     void deleteComic(long comicId);
-
     List<ComicRankingDTO> rankingDay();
     List<ComicRankingDTO> rankingWeek();
     List<ComicRankingDTO> rankingMonth();
+    List<ComicDTO> filterComic(String query1,String query2);
 
 
 

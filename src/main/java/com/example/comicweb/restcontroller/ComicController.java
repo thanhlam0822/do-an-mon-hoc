@@ -53,10 +53,10 @@ public class ComicController {
         return comics;
     }
     @GetMapping("/search")
-    public List<ComicDTO> searchComics(@RequestParam("name") String name,@RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                       @RequestParam(value = "pageSize",defaultValue = "8",required = false) Integer pageSize) {
+    public List<ComicDTO> searchComics(@RequestParam String search,@RequestParam(defaultValue = "0",required = false) Integer pageNumber,
+                                       @RequestParam(defaultValue = "8",required = false) Integer pageSize) {
 //        return  comicService.findComicByName(name);
-        List<ComicDTO> comicDTOS = comicService.findComicByName(name,pageNumber,pageSize);
+        List<ComicDTO> comicDTOS = comicService.findComicByName(search,pageNumber,pageSize);
         return comicDTOS;
     }
     @GetMapping("/ranking/day")
@@ -120,6 +120,12 @@ public class ComicController {
     public String deleteComic(@PathVariable("comicId") long comicId) {
         comicService.deleteComic(comicId);
         return "DELETE SUCCESSFULL!!!!";
+    }
+    @GetMapping("search2")
+    public List<ComicDTO> filterComic(@RequestParam String query1,
+                                      @RequestParam String query2) {
+        List<ComicDTO> comicDTOS = comicService.filterComic(query1,query2);
+        return comicDTOS;
     }
 
 }

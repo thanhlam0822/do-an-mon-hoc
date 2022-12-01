@@ -94,5 +94,13 @@ public class ComicServiceImpl implements ComicService {
         return comicDTOS;
     }
 
+    @Override
+    public List<ComicDTO> filterComic(String query1, String query2) {
+        List<Comic> comics = comicRepository.filterComic(query1,query2);
+        List<ComicDTO> comicDTOS = comics.stream().map((comic) -> modelMapper.map(comic, ComicDTO.class))
+                .collect(Collectors.toList());
+        return comicDTOS;
+    }
+
 
 }

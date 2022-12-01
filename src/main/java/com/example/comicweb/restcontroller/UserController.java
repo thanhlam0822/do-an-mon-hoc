@@ -47,35 +47,46 @@ public class UserController
 
         return ResponseEntity.ok(true);
     }
-    @PatchMapping("edit/{userId}")
+    @PutMapping("edit/{userId}")
     public String editUser(@PathVariable("userId") long userId ,  @RequestBody User user ) {
         User tempUser = userService.findById(userId);
-        user.setId(userId);
-        if( user.getUsername() == null) {
-            user.setUsername(tempUser.getUsername());
-        }
-         if (user.getGmail() == null) {
-            user.setGmail(tempUser.getGmail());
-        }
-         if (user.getJob() == null) {
-            user.setJob(tempUser.getJob());
-        }
-         if (user.getPosition() == null) {
-            user.setPosition(tempUser.getPosition());
-        }
-         if (user.getCreateTime() == null) {
-            user.setCreateTime(tempUser.getCreateTime());
-        }
-        if (user.getName() == null) {
-            user.setName(tempUser.getName());
-        }
-         if (user.getPassword() == null) {
-            user.setPassword(tempUser.getPassword());
-        }
-         if (user.getRole() == null) {
-            user.setRole(tempUser.getRole());
-        }
-        userService.updateUser(user);
+
+//        if( user.getUsername() == null) {
+//            user.setUsername(tempUser.getUsername());
+//        }
+        tempUser.setUsername(user.getUsername() == null ? tempUser.getUsername() : user.getUsername());
+        tempUser.setGmail(user.getGmail() == null ? tempUser.getGmail() : user.getGmail());
+        tempUser.setJob(user.getJob() == null ? tempUser.getJob() : user.getJob());
+        tempUser.setPosition(user.getPosition() == null ? tempUser.getPosition() : user.getPosition());
+        tempUser.setCreateTime(user.getCreateTime() == null ? tempUser.getCreateTime() : user.getCreateTime());
+        tempUser.setName(user.getName() == null ? tempUser.getName() : user.getName());
+        tempUser.setPassword(user.getPassword() == null ? tempUser.getPassword() : user.getPassword());
+        tempUser.setRole(user.getRole() == null ? tempUser.getRole() : user.getRole());
+
+
+//         if (user.getGmail() == null) {
+//            user.setGmail(tempUser.getGmail());
+//        }
+
+//         if (user.getJob() == null) {
+//            user.setJob(tempUser.getJob());
+//        }
+//         if (user.getPosition() == null) {
+//            user.setPosition(tempUser.getPosition());
+//        }
+//         if (user.getCreateTime() == null) {
+//            user.setCreateTime(tempUser.getCreateTime());
+//        }
+//        if (user.getName() == null) {
+//            user.setName(tempUser.getName());
+//        }
+//         if (user.getPassword() == null) {
+//            user.setPassword(tempUser.getPassword());
+//        }
+//         if (user.getRole() == null) {
+//            user.setRole(tempUser.getRole());
+//        }
+        userService.updateUser(tempUser);
         return "Success";
     }
     @PatchMapping("{id}")
