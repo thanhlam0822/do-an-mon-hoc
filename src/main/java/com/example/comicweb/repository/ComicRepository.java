@@ -17,7 +17,7 @@ public interface ComicRepository extends JpaRepository<Comic,Long> {
 
     List<Comic> getComicsByCategories(long categoryId);
     List<Comic> getComicByNameContaining(String name);
-//    @Query(value = "SELECT   c  FROM Comic c join fetch c.categories ca WHERE   " + "ca.name=:query" +
+    //    @Query(value = "SELECT   c  FROM Comic c join fetch c.categories ca WHERE   " + "ca.name=:query" +
 //            " Or c.name   LIKE CONCAT('%',:query, '%')"  +
 //            "Or c.author LIKE CONCAT('%',:query, '%')" + ""
 //    )
@@ -31,12 +31,16 @@ public interface ComicRepository extends JpaRepository<Comic,Long> {
             "ca.name LIKE CONCAT('%',:query1, '%') and c.author LIKE CONCAT('%',:query2, '%') " +
             "or  ca.name LIKE CONCAT('%',:query1, '%') and c.name LIKE CONCAT('%',:query2, '%')" +
             "or c.author LIKE CONCAT('%',:query1, '%') and ca.name LIKE CONCAT('%',:query2, '%')" +
-            "or c.author LIKE CONCAT('%',:query1, '%') and c.name LIKE CONCAT('%',:query2, '%')")
-    List<Comic> filterComic(String query1,String query2);
+            "or c.author LIKE CONCAT('%',:query1, '%') and c.name LIKE CONCAT('%',:query2, '%')" +
+            "or c.name LIKE CONCAT('%',:query1, '%') and c.author LIKE CONCAT('%',:query2, '%')" +
+            "or c.name LIKE CONCAT('%',:query1, '%') and ca.name LIKE CONCAT('%',:query2, '%')")
+    Page<Comic> filterComic(String query1,String query2,Pageable pageable);
     @Query( value = "SELECT * from Comic c order by c.view_day desc limit 5  ",nativeQuery = true)
     List<Comic> rankingDay();
     @Query( value = "SELECT * from Comic c order by c.view_week desc limit 5  ",nativeQuery = true)
     List<Comic> rankingWeek();
     @Query( value = "SELECT * from Comic c order by c.view_month desc limit 5  ",nativeQuery = true)
     List<Comic> rankingMonth();
+    @Query("select distinct c from Comic  c join c.categories ")
+    List<Comic> test();
 }

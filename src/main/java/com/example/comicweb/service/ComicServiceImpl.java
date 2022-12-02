@@ -2,7 +2,6 @@ package com.example.comicweb.service;
 
 import com.example.comicweb.dto.ComicDTO;
 import com.example.comicweb.dto.ComicRankingDTO;
-import com.example.comicweb.model.Category;
 import com.example.comicweb.model.Comic;
 import com.example.comicweb.repository.ComicRepository;
 import org.modelmapper.ModelMapper;
@@ -95,8 +94,18 @@ public class ComicServiceImpl implements ComicService {
     }
 
     @Override
-    public List<ComicDTO> filterComic(String query1, String query2) {
-        List<Comic> comics = comicRepository.filterComic(query1,query2);
+    public List<ComicDTO> filterComic(String query1, String query2,Integer pageNumber,Integer pageSize) {
+        Pageable p = PageRequest.of(pageNumber,pageSize);
+        Page<Comic> page = comicRepository.filterComic(query1,query2,p);
+        List<Comic> comics = page.getContent();
+        List<ComicDTO> comicDTOS = comics.stream().map((comic) -> modelMapper.map(comic, ComicDTO.class))
+                .collect(Collectors.toList());
+        return comicDTOS;
+    }
+
+    @Override
+    public List<ComicDTO> test() {
+        List<Comic> comics = comicRepository.test();
         List<ComicDTO> comicDTOS = comics.stream().map((comic) -> modelMapper.map(comic, ComicDTO.class))
                 .collect(Collectors.toList());
         return comicDTOS;

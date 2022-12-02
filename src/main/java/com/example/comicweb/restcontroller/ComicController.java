@@ -1,7 +1,6 @@
 package com.example.comicweb.restcontroller;
 
 
-import com.example.comicweb.dto.CategoryDTO;
 import com.example.comicweb.dto.ComicDTO;
 import com.example.comicweb.dto.ComicRankingDTO;
 import com.example.comicweb.model.Category;
@@ -12,13 +11,9 @@ import com.example.comicweb.service.ComicService;
 import com.example.comicweb.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -53,10 +48,10 @@ public class ComicController {
         return comics;
     }
     @GetMapping("/search")
-    public List<ComicDTO> searchComics(@RequestParam String search,@RequestParam(defaultValue = "0",required = false) Integer pageNumber,
-                                       @RequestParam(defaultValue = "8",required = false) Integer pageSize) {
+    public List<ComicDTO> searchComics(@RequestParam String query,@RequestParam(defaultValue = "0",required = false) Integer pageNumber,
+                                       @RequestParam(defaultValue = "10",required = false) Integer pageSize) {
 //        return  comicService.findComicByName(name);
-        List<ComicDTO> comicDTOS = comicService.findComicByName(search,pageNumber,pageSize);
+        List<ComicDTO> comicDTOS = comicService.findComicByName(query,pageNumber,pageSize);
         return comicDTOS;
     }
     @GetMapping("/ranking/day")
@@ -123,8 +118,15 @@ public class ComicController {
     }
     @GetMapping("search2")
     public List<ComicDTO> filterComic(@RequestParam String query1,
-                                      @RequestParam String query2) {
-        List<ComicDTO> comicDTOS = comicService.filterComic(query1,query2);
+                                      @RequestParam(required = false) String query2,
+                                      @RequestParam(defaultValue = "0",required = false) Integer pageNumber,
+                                      @RequestParam(defaultValue = "10",required = false) Integer pageSize) {
+        List<ComicDTO> comicDTOS = comicService.filterComic(query1,query2,pageNumber,pageSize);
+        return comicDTOS;
+    }
+    @GetMapping("test2")
+    public List<ComicDTO> filterComic() {
+        List<ComicDTO> comicDTOS = comicService.test();
         return comicDTOS;
     }
 
