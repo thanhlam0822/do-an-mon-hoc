@@ -36,7 +36,7 @@ public class User {
     @Column(name="position")
     private String position;
     @Column(name="status")
-    private String status;
+    private String status = "ACTIVE";
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;

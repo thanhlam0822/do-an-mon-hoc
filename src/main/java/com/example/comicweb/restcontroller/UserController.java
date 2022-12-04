@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,10 @@ public class UserController
     public List<User> getAllUser() {
         return userService.getAllUser();
     }
+    @GetMapping("{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.findById(id);
+    }
     @GetMapping("favorite/{userId}")
     public List<Comic> getComicFavorite(@PathVariable("userId") long userId) {
          User user = userService.findById(userId);
@@ -47,7 +52,7 @@ public class UserController
 
         return ResponseEntity.ok(true);
     }
-    @PutMapping("edit/{userId}")
+    @PutMapping ("edit/{userId}")
     public String editUser(@PathVariable("userId") long userId ,  @RequestBody User user ) {
         User tempUser = userService.findById(userId);
 
@@ -62,6 +67,11 @@ public class UserController
         tempUser.setName(user.getName() == null ? tempUser.getName() : user.getName());
         tempUser.setPassword(user.getPassword() == null ? tempUser.getPassword() : user.getPassword());
         tempUser.setRole(user.getRole() == null ? tempUser.getRole() : user.getRole());
+
+
+
+
+
 
 
 //         if (user.getGmail() == null) {
