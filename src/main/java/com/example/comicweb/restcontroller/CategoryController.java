@@ -1,6 +1,7 @@
 package com.example.comicweb.restcontroller;
 
 import com.example.comicweb.dto.CategoryDTO;
+import com.example.comicweb.dto.CategoryListDTO;
 import com.example.comicweb.model.Category;
 import com.example.comicweb.model.Comic;
 import com.example.comicweb.service.CategoryService;
@@ -29,6 +30,10 @@ public class CategoryController {
 
         return categoryService.getAllCategory().stream().map(category -> modelMapper.map(category, CategoryDTO.class))
                 .collect(Collectors.toList());
+    }
+    @GetMapping("category/list")
+    public List<CategoryListDTO> getListCategoty() {
+        return categoryService.getListCategory();
     }
 
 
@@ -69,7 +74,8 @@ public class CategoryController {
     @DeleteMapping("category/{categoryId}")
     public String deleteCategory(@PathVariable("categoryId") long categoryId) {
         categoryService.deleteById(categoryId);
-        return "DELETE SUCCESSFUL";
+
+        return "DELETE SUCCESS" ;
     }
 
 
