@@ -1,5 +1,6 @@
 package com.example.comicweb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Getter;
@@ -25,7 +26,7 @@ public class ComicChapters {
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
     @JoinColumn(name = "comic_id")
-
+    @JsonIgnore
     private Comic comic;
     public ComicChapters() {
 

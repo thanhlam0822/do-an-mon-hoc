@@ -72,10 +72,10 @@ public class CategoryController {
     }
     // Xoa category bang id cua category
     @DeleteMapping("category/{categoryId}")
-    public String deleteCategory(@PathVariable("categoryId") long categoryId) {
+    public List<CategoryListDTO> deleteCategory(@PathVariable("categoryId") long categoryId) {
         categoryService.deleteById(categoryId);
 
-        return "DELETE SUCCESS" ;
+        return categoryService.getListCategory();
     }
 
 

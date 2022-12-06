@@ -19,6 +19,7 @@ public interface ComicService {
     List<ComicRankingDTO> rankingMonth();
     List<ComicDTO> filterComic(String query1,String query2,Integer pageNumber,Integer pageSize);
     List<ComicDTO> test();
+    ComicDTO findComicDtoById(long comicId);
 
 
 }

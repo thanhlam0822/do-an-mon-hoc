@@ -1,6 +1,7 @@
 package com.example.comicweb.dto;
 
 import com.example.comicweb.model.Category;
+import com.example.comicweb.model.ComicChapters;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,8 +18,7 @@ public class ComicDTO {
 //    private String status;
     private Integer view;
     private List<Category> categories;
+    private List<ComicChapters> comicChapters;
     private Long starRate;
-//    private int viewDay;
-//    private int viewWeek;
-//    private int viewMonth;
+
 }

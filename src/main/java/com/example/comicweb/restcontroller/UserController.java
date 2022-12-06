@@ -99,10 +99,10 @@ public class UserController
         userService.updateUser(tempUser);
         return "Success";
     }
-    @PatchMapping("{id}")
-    public String removeUser(@PathVariable("id") Long id) {
+    @PutMapping("{id}")
+    public List<User> removeUser(@PathVariable("id") Long id) {
         userService.deleteUSer(id);
-        return "Deleted";
+        return userService.getAllUser();
 
     }
 

@@ -5,6 +5,7 @@ import com.example.comicweb.dto.ComicDTO;
 import com.example.comicweb.dto.ComicRankingDTO;
 import com.example.comicweb.model.Category;
 import com.example.comicweb.model.Comic;
+import com.example.comicweb.model.ComicChapters;
 import com.example.comicweb.model.User;
 import com.example.comicweb.service.CategoryService;
 import com.example.comicweb.service.ComicService;
@@ -128,6 +129,10 @@ public class ComicController {
     public List<ComicDTO> filterComic() {
         List<ComicDTO> comicDTOS = comicService.test();
         return comicDTOS;
+    }
+    @GetMapping("comicdto/{comicId}")
+    public ComicDTO getComicDtoById(@PathVariable("comicId") long comicId) {
+        return comicService.findComicDtoById(comicId);
     }
 
 }

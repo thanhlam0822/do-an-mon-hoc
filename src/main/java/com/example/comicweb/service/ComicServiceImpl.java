@@ -56,6 +56,7 @@ public class ComicServiceImpl implements ComicService {
     public Comic findComicById(long comicId) {
         Optional<Comic> list = comicRepository.findById(comicId);
         Comic theComic = list.get();
+
         return theComic;
     }
 
@@ -109,6 +110,14 @@ public class ComicServiceImpl implements ComicService {
         List<ComicDTO> comicDTOS = comics.stream().map((comic) -> modelMapper.map(comic, ComicDTO.class))
                 .collect(Collectors.toList());
         return comicDTOS;
+    }
+
+    @Override
+    public ComicDTO findComicDtoById(long comicId) {
+        Optional<Comic> list = comicRepository.findById(comicId);
+        Comic theComic = list.get();
+        ComicDTO comicDTO = modelMapper.map(theComic,ComicDTO.class);
+        return comicDTO;
     }
 
 
