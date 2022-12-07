@@ -104,13 +104,7 @@ public class ComicServiceImpl implements ComicService {
         return comicDTOS;
     }
 
-    @Override
-    public List<ComicDTO> test() {
-        List<Comic> comics = comicRepository.test();
-        List<ComicDTO> comicDTOS = comics.stream().map((comic) -> modelMapper.map(comic, ComicDTO.class))
-                .collect(Collectors.toList());
-        return comicDTOS;
-    }
+
 
     @Override
     public ComicDTO findComicDtoById(long comicId) {

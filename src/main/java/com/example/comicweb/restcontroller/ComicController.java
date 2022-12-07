@@ -1,6 +1,7 @@
 package com.example.comicweb.restcontroller;
 
 
+import com.example.comicweb.dto.CategoryListDTO;
 import com.example.comicweb.dto.ComicDTO;
 import com.example.comicweb.dto.ComicRankingDTO;
 import com.example.comicweb.model.Category;
@@ -78,6 +79,15 @@ public class ComicController {
          comicService.addComic(comic);
          return comic;
     }
+    @PostMapping("comic/{categoryId}")
+    public Comic addComic(@RequestBody Comic comic,@PathVariable("categoryId") Long categoryId ) {
+        Category category = categoryService.findCategoryById(categoryId);
+        List<Category> comicCategory = comic.getCategories();
+        comicCategory.add(category);
+        comic.setCategories(comicCategory);
+        comicService.addComic(comic);
+        return comic;
+    }
     /* Them truyen vao danh sach yeu thich */
     @PostMapping("/comic/favorite/{userId}/{comicId}")
     public Comic addFavorite(@PathVariable("userId") long userId,@PathVariable("comicId") long comicId) {
@@ -98,10 +108,7 @@ public class ComicController {
         follows.add(comic);
         user.setComicsFollowed(follows);
         userService.saveUser(user);
-//        List<User> userList = comic.getUserFollow();
-//        userList.add(user);
-//        comic.setUsers(userList);
-//        comicService.addComic(comic);
+
         return comic;
     }
     // Chinh sua mot comic
@@ -125,11 +132,7 @@ public class ComicController {
         List<ComicDTO> comicDTOS = comicService.filterComic(query1,query2,pageNumber,pageSize);
         return comicDTOS;
     }
-    @GetMapping("test2")
-    public List<ComicDTO> filterComic() {
-        List<ComicDTO> comicDTOS = comicService.test();
-        return comicDTOS;
-    }
+
     @GetMapping("comicdto/{comicId}")
     public ComicDTO getComicDtoById(@PathVariable("comicId") long comicId) {
         return comicService.findComicDtoById(comicId);

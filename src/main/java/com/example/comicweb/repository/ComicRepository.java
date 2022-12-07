@@ -41,6 +41,5 @@ public interface ComicRepository extends JpaRepository<Comic,Long> {
     List<Comic> rankingWeek();
     @Query( value = "SELECT * from Comic c order by c.view_month desc limit 5  ",nativeQuery = true)
     List<Comic> rankingMonth();
-    @Query("select distinct c from Comic  c join c.categories ")
-    List<Comic> test();
+
 }
