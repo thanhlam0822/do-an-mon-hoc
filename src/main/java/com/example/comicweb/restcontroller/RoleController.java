@@ -15,4 +15,8 @@ public class  RoleController {
     public String userRole() {
         return "This is user role";
     }
+    @GetMapping("/home")
+    public String home() {
+        return "this is home";
+    }
 }
