@@ -47,7 +47,12 @@ public class CategoryServiceImpl implements CategoryService  {
         categoryRepository.deleteById(categoryId);
     }
 
+    @Override
+    public List<Category> findByManyId(List<Long>id) {
+        List<Category> categories = categoryRepository.findCategoriesByIdIn(id);
 
+        return categories;
+    }
 
 
 }

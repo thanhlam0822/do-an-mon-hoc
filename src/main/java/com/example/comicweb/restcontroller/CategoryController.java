@@ -77,6 +77,10 @@ public class CategoryController {
 
         return categoryService.getListCategory();
     }
+    @GetMapping("category/list/test/{categoryId}")
+    public List<Category> getByManyId(@PathVariable("categoryId") List<Long> categoryId) {
+        return categoryService.findByManyId(categoryId);
+    }
 
 
 }

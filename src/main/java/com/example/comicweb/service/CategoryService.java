@@ -1,5 +1,6 @@
 package com.example.comicweb.service;
 
+import com.example.comicweb.dto.CategoryDTO;
 import com.example.comicweb.dto.CategoryListDTO;
 import com.example.comicweb.model.Category;
 
@@ -11,6 +12,7 @@ public interface CategoryService {
    Category findCategoryById(long categoryId);
    void addCategory(Category category);
    void deleteById(long categoryId);
+   List<Category> findByManyId(List<Long> id);
 
 
 }

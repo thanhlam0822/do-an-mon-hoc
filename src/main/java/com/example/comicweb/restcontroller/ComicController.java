@@ -74,20 +74,28 @@ public class ComicController {
 
 
     // Thêm mới một comic
-    @PostMapping("/comic")
-    public Comic addComic(@RequestBody Comic comic) {
+//    @PostMapping("/comic")
+//    public Comic addComic(@RequestBody Comic comic) {
+//         comicService.addComic(comic);
+//         return comic;
+//    }
+    @PostMapping("/comic/{categoryId}")
+    public Comic addComic(@RequestBody Comic comic,@PathVariable("categoryId") List<Long> categoryId) {
+        List<Category> categoryList = categoryService.findByManyId(categoryId);
+        comic.setCategories(categoryList);
          comicService.addComic(comic);
          return comic;
     }
-    @PostMapping("comic/{categoryId}")
-    public Comic addComic(@RequestBody Comic comic,@PathVariable("categoryId") Long categoryId ) {
-        Category category = categoryService.findCategoryById(categoryId);
-        List<Category> comicCategory = comic.getCategories();
-        comicCategory.add(category);
-        comic.setCategories(comicCategory);
-        comicService.addComic(comic);
-        return comic;
-    }
+
+//    @PostMapping("comic/{categoryId}")
+//    public Comic addComic(@RequestBody Comic comic,@PathVariable("categoryId") Long categoryId ) {
+//        Category category = categoryService.findCategoryById(categoryId);
+//        List<Category> comicCategory = comic.getCategories();
+//        comicCategory.add(category);
+//        comic.setCategories(comicCategory);
+//        comicService.addComic(comic);
+//        return comic;
+//    }
     /* Them truyen vao danh sach yeu thich */
     @PostMapping("/comic/favorite/{userId}/{comicId}")
     public Comic addFavorite(@PathVariable("userId") long userId,@PathVariable("comicId") long comicId) {
