@@ -39,8 +39,8 @@ public class ComicController {
     }
     // Lấy comic theo Id
     @GetMapping("comic/{comicId}")
-    public Comic getComicById(@PathVariable("comicId") long comicId) {
-        return comicService.findComicById(comicId);
+    public ComicDTO getComicById(@PathVariable("comicId") long comicId) {
+        return comicService.findComicDtoById(comicId);
     }
     @GetMapping("category/{categoryId}/comic")
     public List<Comic> getAllComicByCategory(@PathVariable("categoryId") long categoryId) {
@@ -128,9 +128,11 @@ public class ComicController {
     }
     // Xoa comic bang id
     @DeleteMapping("comic/{comicId}")
-    public String deleteComic(@PathVariable("comicId") long comicId) {
+    public List<ComicDTO> deleteComic(@PathVariable("comicId") long comicId,
+                                      @RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                      @RequestParam(value = "pageSize",defaultValue = "8",required = false) Integer pageSize) {
         comicService.deleteComic(comicId);
-        return "DELETE SUCCESSFULL!!!!";
+        return comicService.getAllComic(pageNumber,pageSize);
     }
     @GetMapping("search2")
     public List<ComicDTO> filterComic(@RequestParam String query1,

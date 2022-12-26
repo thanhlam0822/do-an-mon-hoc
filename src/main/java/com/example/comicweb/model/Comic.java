@@ -29,6 +29,7 @@ public class Comic  {
     @Column(name="img_url")
     private String imageUrl;
     @Column(name = "date_update" )
+
     private LocalDateTime date = LocalDateTime.now();
     @Column(name= "star_rate")
     private Long starRate;
@@ -61,6 +62,7 @@ public class Comic  {
     private List<Category> categories;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "favorite",
             joinColumns = @JoinColumn(name = "comic_id"),

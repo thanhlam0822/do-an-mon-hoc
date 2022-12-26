@@ -26,7 +26,7 @@ public class User {
     @Column(name = "password", nullable = false, length = 100)
     private String password;
 
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(name = "name", nullable = true, length = 100)
     private String name;
 
     @Column(name = "create_time", nullable = false)
@@ -50,7 +50,7 @@ public class User {
     public User() {
 
     }
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
     private List<Comment> comments;
@@ -70,5 +70,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "comic_id")
     )
     private List<Comic> comicsFollowed;
+    @OneToMany(mappedBy = "user")
+    List<ErrorAlert> errorAlerts;
 
 }

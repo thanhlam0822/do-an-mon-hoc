@@ -1,5 +1,6 @@
 package com.example.comicweb.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -8,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,11 +25,22 @@ public class ComicChapters {
     private String chapterName;
     @Column(name = "chapter_link")
     private String chapterLink;
+    @Column(name = "chapter_link_eng")
+    private String chapterLinkEng;
+    @Column(name = "chapter_link_russia")
+    private String chapterLinkRussia;
+    @Column
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDateTime timeUpdate = LocalDateTime.now();
+    @Column
+    private int view;
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,
             CascadeType.DETACH,CascadeType.REFRESH })
     @JoinColumn(name = "comic_id")
     @JsonIgnore
     private Comic comic;
+    @OneToMany(mappedBy = "comicChapters")
+    private List<ErrorAlert> errorAlertList;
     public ComicChapters() {
 
     }

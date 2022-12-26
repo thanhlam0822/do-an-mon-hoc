@@ -1,5 +1,6 @@
 package com.example.comicweb.repository;
 
+import com.example.comicweb.dto.ComicChaptersDTO;
 import com.example.comicweb.model.Category;
 import com.example.comicweb.model.Comic;
 import org.springframework.data.domain.Page;
@@ -41,5 +42,6 @@ public interface ComicRepository extends JpaRepository<Comic,Long> {
     List<Comic> rankingWeek();
     @Query( value = "SELECT * from Comic c order by c.view_month desc limit 5  ",nativeQuery = true)
     List<Comic> rankingMonth();
+
 
 }
